@@ -1,0 +1,12 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "## Project Overview The goal of this project is to assess your understanding of Docker containerization and Continuous Integration/Continuous Deployment (CI/CD) principles. You will be provided with a simple calculator web application consisting of a **React frontend** and a **Python backend**. Your task is to containerize these components, create a multi-container setup using Docker Compose, and implement an automated CI/CD pipeline.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

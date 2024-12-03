@@ -1,0 +1,12 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "## Overview This directory will contain the backend code in Python programming language for performing the Calculator operations. This backend is a Flask-based REST API that provides various mathematical operations for a calculator application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

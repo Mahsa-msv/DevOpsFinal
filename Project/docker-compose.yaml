@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://backend:5001
+    volumes:
+    - ./frontend:/app
+   
+    # Specify the command to run the development server (if different from Dockerfile)
+    command: npm start
+ 
+  backend:
+   
+    # Specify the build context for the backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile    
+   
+    # Map the host port to the container port
+    ports:
+      - "5001:5001"
+ 
+    # Specify environment variables if needed
+    environment:
+      - FLASK_ENV=development    
+    # Specify volume for live code reloading (optional)
+   
+    volumes:
+      - ./backend:/app    
+   
+    # Specify the command to run the development server (if different from Dockerfile)
+    command: flask run --host=0.0.0.0 --port=5001
