@@ -1,0 +1,180 @@
+name: Calculator App CI/CD Workflow
+ 
+on:
+
+  push:
+
+    branches:
+
+      - main
+
+  pull_request:
+
+    branches:
+
+      - main
+
+  workflow_dispatch:
+
+jobs:
+
+  frontend:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+
+        uses: actions/checkout@v3
+ 
+      - name: Setup Node.js
+
+        uses: actions/setup-node@v3
+
+        with:
+
+          node-version: 16
+ 
+      - name: Install Dependencies
+
+        run: npm install
+
+        working-directory: ./Project/frontend
+ 
+      - name: Run Tests
+
+        run: npm test
+
+        working-directory: ./Project/frontend
+ 
+      - name: Build React App
+
+        run: npm run build
+
+        working-directory: ./Project/frontend
+ 
+  backend:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+
+        uses: actions/checkout@v3
+ 
+      - name: Setup Python
+
+        uses: actions/setup-python@v3
+
+        with:
+
+          python-version: 3.9
+ 
+      - name: Install Dependencies
+
+        run: |
+
+          python -m pip install --upgrade pip
+
+          pip install -r requirements.txt
+
+          pip show pytest
+
+        working-directory: ./Project/backend
+ 
+      - name: Run Tests
+
+        run: pytest
+
+        working-directory: ./Project/backend
+ 
+  docker:
+
+    needs:
+
+      - frontend
+
+      - backend
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+
+        uses: actions/checkout@v3
+ 
+      - name: Login to Docker Hub
+
+        uses: docker/login-action@v2
+
+        with:
+
+          username: ${{ secrets.DOCKER_USERNAME }}
+
+          password: ${{ secrets.DOCKER_PASSWORD }}
+ 
+      - name: Build Frontend Docker Image
+
+        run: |
+
+          docker build -t bulushi9/project-frontend:latest ./Project/frontend
+
+      - name: Build Backend Docker Image
+
+        run: |
+
+          docker build -t bulushi9/project-backend:latest ./Project/backend
+
+      - name: Push Docker Images
+
+        if: github.ref == 'refs/heads/main'
+
+        run: |
+
+          docker push bulushi9/project-frontend:latest
+
+          docker push bulushi9/project-backend:latest
+ 
+  deploy:
+
+    needs: docker
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+
+        uses: actions/checkout@v3
+ 
+      - name: Login to Docker Hub
+
+        uses: docker/login-action@v2
+
+        with:
+
+          username: ${{ secrets.DOCKER_USERNAME }}
+
+          password: ${{ secrets.DOCKER_PASSWORD }}
+ 
+      - name: Deploy Frontend Docker Container
+
+        run: |
+
+          docker run -d --name calculator-frontend -p 3000:3000 msvmahsa/project-frontend:latest
+
+      - name: Deploy Backend Docker Container
+
+        run: |
+
+          docker run -d --name calculator-backend -p 5001:5001 msvmahsa/project-backend:latest
+
+      - name: Verify Deployment
+
+        run: |
+
+          docker ps -a
+ 
