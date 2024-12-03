@@ -70,7 +70,7 @@ jobs:
 
         with:
 
-          python-version: 3.9
+          python-version: 3
  
       - name: Install Dependencies
 
