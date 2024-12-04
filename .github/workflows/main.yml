@@ -120,13 +120,13 @@ jobs:
 
         run: |
 
-          docker build -t msvmahsa/project-frontend:latest ./Project/frontend
+          docker build -t msvmahsa/project-frontend::${{ github.sha }} ./Project/frontend
 
       - name: Build Backend Docker Image
 
         run: |
 
-          docker build -t msvmahsa/project-backend:latest ./Project/backend
+          docker build -t msvmahsa/project-backend::${{ github.sha }} ./Project/backend
 
       - name: Push Docker Images
 
