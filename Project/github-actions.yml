@@ -37,8 +37,7 @@ frontend:
     steps:
       # TODO: Checkout code
       # TODO: Setup Docker
-      # TODO: Build frontend Docker image
-      # TODO: Build backend Docker image
+     
 
   # OPTIONAL: Define a deployment job (if applicable)
   deploy:
