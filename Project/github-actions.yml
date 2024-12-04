@@ -36,7 +36,6 @@ frontend:
     runs-on: ubuntu-latest
     steps:
       # TODO: Checkout code
-      # TODO: Setup Docker
      
 
   # OPTIONAL: Define a deployment job (if applicable)
