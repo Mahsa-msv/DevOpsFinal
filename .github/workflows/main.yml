@@ -134,8 +134,8 @@ jobs:
 
         run: |
 
-          docker push msvmahsa/project-frontend:${{ github.sha }}
-          docker push msvmahsa/project-backend:${{ github.sha }}
+          docker push msvmahsa/project-frontend:latest
+          docker push msvmahsa/project-backend:latest
  
   deploy:
 
