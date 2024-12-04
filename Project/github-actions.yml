@@ -39,7 +39,6 @@ frontend:
       # TODO: Setup Docker
       # TODO: Build frontend Docker image
       # TODO: Build backend Docker image
-      # TODO: Push images to Docker Hub (if on main branch)
 
   # OPTIONAL: Define a deployment job (if applicable)
   deploy:
