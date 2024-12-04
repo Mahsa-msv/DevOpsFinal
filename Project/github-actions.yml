@@ -13,8 +13,6 @@ jobs:
   frontend:
     runs-on: ubuntu-latest
     steps:
-      # TODO: Checkout code
-      # TODO: Setup Node.js
       # TODO: Install dependencies
       # TODO: Build the React app
 
